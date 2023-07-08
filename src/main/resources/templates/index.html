@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot Project Demo 6</title>
+<link rel="stylesheet" href="./styles/index.css">
+
+</head>
+<body> 
+    <div class="cabecera">
+        <div class="cab1"></div>
+        <div class="cap2"></div>
+    </div>
+    <div class="cuerpo">
+        <div class="panel1">
+            <div class="nota"><div class="notacab1"><p>Proyecto</p></div>
+                              <div class="notabody"><p style="text-align: center;"><span>#Spring Boot Project Demo 6</span></p>
+                            </div>
+            </div> 
+            <div class="nota"><div class="notacab1"><p>Objetivos</p></div>
+                              <div class="notabody"><p class="objetivos">- <b>S</b>pring Security: Configuración.</p>
+                                                    <p class="objetivos">- <b>S</b>pring Security: Visibilidad de los recursos.</p>
+                                                    <p class="objetivos">- <b>S</b>pring Security: login y autologin.</p>
+                              						<p class="objetivos">- <b>S</b>pring Security: logout.</p>
+                              						<p class="objetivos">- <b>S</b>pring Security: Usuarios y roles.</p>
+                              						<p class="objetivos">- <b>S</b>pring Security: Explotación de la información de autenticación y autentificación.</p>
+                              						<p class="objetivos">- <b>S</b>pring Security: Eventos de login success y login failures.</p>
+                              						<p class="objetivos">- <b>S</b>pring Security: Thymeleaf con Spring Security.</p>
+                              </div>        
+                            
+            </div>
+            <div class="nota"><div class="notacab2"><p>Entorno de Desarrollo</p></div>
+                              <div class="notabody"><p><span>Ide:</span> Sprint Tool Suite, versión: 4</p>
+                                                    <p><span>Servidor de referencia:</span> Apache Tomcat, versión: 10</p>
+                                                    <p><span>Jdk:</span> OpenJdk, versión: 17.1</p>
+                            </div>
+            </div>
+            <div class="nota"><div class="notacab2"><p>Estandar de Desarrollo</p></div>
+                              <div class="notabody"><p><span>Gestor de proyecto:</span> Maven, versión: 4</p>
+                            </div>
+            </div> 
+            <div class="nota"><div class="notacab2"><p>Dependencias</p></div>
+                              <div class="notabody"><p><span>Spring Boot Framework:</span> Spring, versión 3.1.*. Módulos: spring-boot-starter-web, spring-boot-starter-tomcat, tomcat-embed-jasper, spring-boot-starter-security, thymeleaf-extras-springsecurity6</p>                        
+                            </div>
+            </div>  
+            <div class="nota"><div class="notacab2"><p>Documentación y Sitios de Interés</p></div>
+                              <div class="notabody"><p><a href="https://mvnrepository.com/" target="_blank"><b>Ir a</b></a> Maven Repository (para localizar dependencias)</p>
+                                                    <p><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/" target="_blank"><b>Leer</b></a> Documentación de Spring Framework</p>
+                                                    <p><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank"><b>Leer</b></a> Documentación de Spring Boot</p>
+                                                    <p><a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html" target="_blank"><b>Leer</b></a> Documentación ejemplo básico de Spring Security</p>
+                                                    <p><a href="https://www.thymeleaf.org/documentation.html" target="_blank"><b>Leer</b></a> Documentación de Thymeleaf (vistas)</p>
+                                                    <p><a href="https://www.thymeleaf.org/doc/articles/springsecurity.html" target="_blank"><b>Leer</b></a> Documentación de Thymeleaf con Spring Security(vistas)</p>
+                            </div>
+            </div>       
+        </div>
+        <div class="panel2">
+            <div class="item"><p><span>Ejemplo 1 - Security Spring - Logout:</span> En este ejemplo, al hacer click en <b>Salir</b>, se invoca al logout de Spring Security y cuya configuración se encuentra descrita en el método securityFilterChain de la clase SecurityConfiguration.java, permitiendo anular la autenticación del usuario y además reinicia las variables de sesión que pudieran existir. Esto desata el evento end session y onApplicationEvent (ver LogoutEventListener.java). Observe como la aplicación devuelve al cliente a la vista de loggin (pues así se configuró en securityFilterChain.java) informando por parámetro GET de que se trata de un logout desatado por el usuario. <br><br>Tambien, al comprobar el código html de este formulario puede apreciar que al indicar th:action="@{/logout}", thymeleaf añade por nosotros el token <b>csrf</b> necesario para que funcione cada petición post en el contexto de la seguridad; si no se añade, no se tendrá permiso para enviar datos por post. La necesidad de proporcionar el token <b>csrf</b> se puede deshabilitar en securityFilterChain.<p>
+	            <form th:action="@{/logout}" method="POST">
+					<center><input type="submit" value="Salir"/></center>
+				</form>		
+            </div>
+            <div class="item"><p><span>Ejemplo 2 -Security Spring - Dialecto Thymeleaf:</span> En este ejemplo, si examinas el código en esta vista html, dispones de una muestra de como haciendo uso de atributos thymeleaf, puedes obtener información del usuario autenticado o autentificado. Para poder hacer uso de los atributos sec: de thymeleaf, debes añadir al POM.XML la dependencia thymeleaf-extras-springsecurity6. En este ejemplo, la información del usuario autenticado y autentificado es:<p>
+            	<b>Usuario:</b> <em sec:authentication="name">Bob</em><br/>
+            	<b>Roles:</b> <em sec:authentication="principal.authorities"></em>
+            </div>
+            <div class="item"><p><span>Ejemplo 3 -Security Spring - Filtro control de acceso por roles:</span> Este ejemplo, solo puede ser ejecutado si el usuario está autentificado con el rol de administrador, de lo contrario devolverá un error de tipo forbidden (type=Forbidden, status=403). Esta configuración está implementada en el método filterChain de la clase SecurityAppConfig.java. Esta capacidad de spring security nos permite reservar areas de la aplicación a determinados roles, algo muy común en cualquier aplicación. <a href="./admin/ejemplo3">Ver Ejemplo</a><p>
+            </div>
+            <div class="item"><p><span>Ejemplo 4 -Security Spring - Datos de autentificación desde código java:</span> Este ejemplo, pretende conseguir lo mismo que se hace en el ejemplo 2, pero a diferencia de este último, se obtiene la información desde código java haciendo uso de un objeto de tipo Authentication, es decir, desde la controladora. Esto puede ser muy útil para implementar lógica relacionada con los permisos antes de delegar a la vista. <a href="./ejemplo4">Ver Ejemplo</a><p>
+            </div>
+            <div class="item"><p><span>Ejemplo 5 -Security Spring - Autologin:</span> Este ejemplo, fuerza desde la controladora un autologin haciendo uso del método login que implementa la interfaz HttpServletRequest. Esto puede ser interesante en procesos de registros de usuario tal que al finalizar exitosamente dicho proceso, se evita que el usuario deba logearse (introducir usuario y contraseña). También puede ser útil al combinarlo con el uso de cookies que dispongan de tokens que representen identificadores de usuario para autologearlo cuando accedan al sitio (Ej: muchas redes sociales evitan la autenticación cada vez que se accede por un periodo de tiepo de vigencia que determina sus cookies). <a href="./ejemplo5">Ver Ejemplo</a><p>
+            </div>
+            <div class="item"><p><span>Ejemplo 6 -Security Spring - Dialecto Thymeleaf:</span> En este ejemplo, si inspecciona el código thymeleaf, podra comprobar como puede mostrar u ocultar código html según los roles del usuario. Esto es muy útil a la hora de representar funcionalidades que solo determinados roles podrán visualizar: <p>
+							  <br>
+							  <p sec:authorize="isAuthenticated()">Si visualiza este parrafo, significa que usted está autenticado.</p>
+							  <br>
+							  <p sec:authorize="hasRole('administrador')">Si visualiza este parrafo, significa que usted está autenticado y autentificado con el rol de administrador.</p>
+            </div>
+            <div class="item"><p><span>Ejemplo 7 -Eventos de Security Spring:</span> Analiza las clases AuthenticationEvents y LogoutEventListener (AuthenticationEvents.java y LogoutEventListener.java). Estas clases son opcionales y puedes prescindir de ellas. Pero con los eventos descritos en ellas, puedes controlar y capturar los siguientes eventos:<p>
+							  <br>
+							  <p><b>Login exitoso (onSuccess): </b> Se desata cuando el usuario se autentica correctamente (usuario y contraseña correctos).</p>
+							  <p><b>Login fallido (onFailure): </b> Se desata cuando la autenticación ha sido erronea (usuario o contraseña incorrectos o no existe u otro problema).</p>
+							  <p><b>Logout (onApplicationEvent): </b> Se desata cuando se produce un logout y el usuario acaba de dejar de estar autenticado.</p>
+		   </div>
+		   <div class="item" sec:authorize="hasRole('administrador')"><p><span>Ejemplo 8 -Añadir nuevo usuario:</span> Este ejemplo, solo se ofrece cuando estas autentificado como administrador y permite añadir en caliente un nuevo usuario a la aplicación: </p>
+						   	            <form th:action="@{/admin/newuser}" method="POST">
+											<div><input type="text" name="user" placeholder="Indica un nuevo usuario..."/></div>
+											<div><input type="text" name="pass" placeholder="Indica una contraseña..."/></div>
+											<div><input type="submit" value="Añadir"/></div>
+										</form>	
+		   </div>
+        </div>
+    </div>
+    <div class="pie"><p><span>©</span> 2023 - Daniel Pérez Pérez</p></div>
+
+</body>
+</html>
