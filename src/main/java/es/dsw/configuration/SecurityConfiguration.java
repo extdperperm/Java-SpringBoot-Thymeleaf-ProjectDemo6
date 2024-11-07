@@ -63,6 +63,7 @@ public class SecurityConfiguration {
 				.requestMatchers("/ayuda").permitAll() //Acceso permitido de todos los clientes a la ruta /ayuda que en este caso se corresponde con el mapeo de una controladora. (ver MainController.java)
 				//Se indican los mapeos a todas las rutas de las controladoras que se permitirá el acceso según los roles del usuario.
 				.requestMatchers("/admin/**").hasRole("administrador") //Solo los usuarios con rol administrador podrá acceder a /admin/ y todos los mapeos que cuelguen de este.
+			        //Nota: Con hasAnyRole puedes indicar los roles que permites acceso a un mismo mapeo. Si aplicas sobre el mismo mapeo más de una regla CUIDADO el orden importa.
 				.anyRequest().authenticated() //Finalmente se indica que para el resto de mapeos, se requerirá autenticación. Es decir, para el resto, se impide el acceso sin autenticación.
 				//Nota: Observa que los dobles ** indican esa ruta y las derivadas de ella de forma recursiva. Un * indica en el caso de directorios, solo a esa carpeta.
 		)
