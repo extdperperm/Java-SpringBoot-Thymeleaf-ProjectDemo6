@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spring Boot Project Demo 6</title>
+		<link rel="stylesheet" href="./styles/loggin.css">
+	</head> 
+	<body>
+		<div class="cabecera">        
+			<div class="cab1"></div>
+			<div class="cap2"></div>
+		</div>
+		<form th:action="@{/logginprocess}" method="post">
+			<div><p class="title">Spring Boot Demo Proyect 6</p></div>
+			<div>
+				<label>Usuario:</label>
+				<input type="text" name="username" placeholder="Username"/>
+			</div>
+			<div>
+				<label>Password:</label>
+				<input type="password" name="password" placeholder="Password"/>
+			</div>
+			<div>
+				<input type="submit" value="ENTRAR" />
+			</div>
+			<div th:if="${param.error}"><p class="error">Usuario o contraseña no válidos</p></div>
+			<div th:if="${param.logout}"><p class="logout">Sesión de usuario cerrada</p></div>
+			<div><p><a class="ayuda" href="./ayuda" target="_blank">Ayuda</a></p></div>
+		</form>
+	</body>
+</html>

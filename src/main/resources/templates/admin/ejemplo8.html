@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Spring Boot Project Demo 6 - Ejemplo 8</title>
+<link rel="stylesheet" href="../styles/index.css">
+</head>
+<body>
+    <div class="cabecera">
+        <div class="cab1"></div>
+        <div class="cap2"></div>
+    </div>
+    <div class="cuerpo">
+        <div class="panel2">
+            <div class="item"><p><span>Resultado Ejemplo 8:</span></p>
+            <p th:if="${ResultadoOperacion}">Usuario añadido o ya existe. Pruebe a realizar un logout y validece con el nuevo usuario.</p>
+            <p th:if="${!ResultadoOperacion}" style="color: red;">Error: Nombre de usuario o contraseña no indicados.</p>
+            </div>
+            <div class="item"><p style="text-align:center;"><a href="../">Volver</a></p></div>
+        </div>
+    </div> 
+    <div class="pie"><p><span>©</span> 2023 - Daniel Pérez Pérez</p></div>
+</body>
+</html>
